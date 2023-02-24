@@ -10,13 +10,19 @@ namespace ZooManager
             species = "cat";
             this.name = name;
             reactionTime = new Random().Next(1, 6); // reaction time 1 (fast) to 5 (medium)
+            reactionTime = 1;
+
+            // isMoved = false; // Improve Featrue:
         }
 
         public override void Activate()
         {
             base.Activate();
             Console.WriteLine("I am a cat. Meow.");
-            Hunt();
+            if (!FleeAwayHunter("raptor"))
+            {
+                Hunt();
+            }    
         }
 
         /* Note that our cat is currently not very clever about its hunting.
@@ -31,22 +37,43 @@ namespace ZooManager
         // Adjust: Keep this method private, because it only be used in Cat object.
         private void Hunt()
         {
-            if (Seek(location.x, location.y, Direction.up, "mouse"))
+            if (Seek(location.x, location.y, Direction.up, "mouse") || Seek(location.x, location.y, Direction.up, "chick"))
             {
                 Attack(this, Direction.up);
             }
-            else if (Seek(location.x, location.y, Direction.down, "mouse"))
+            else if (Seek(location.x, location.y, Direction.down, "mouse") || Seek(location.x, location.y, Direction.down, "chick"))
             {
                 Attack(this, Direction.down);
             }
-            else if (Seek(location.x, location.y, Direction.left, "mouse"))
+            else if (Seek(location.x, location.y, Direction.left, "mouse") || Seek(location.x, location.y, Direction.left, "chick"))
             {
                 Attack(this, Direction.left);
             }
-            else if (Seek(location.x, location.y, Direction.right, "mouse"))
+            else if (Seek(location.x, location.y, Direction.right, "mouse") || Seek(location.x, location.y, Direction.right, "chick"))
             {
                 Attack(this, Direction.right);
             }
+        }
+
+        private bool FleeAwayHunter(string hunter)
+        {
+            if (Seek(location.x, location.y, Direction.up, hunter))
+            {
+                if (Retreat(this, Direction.down)) return true;
+            }
+            if (Seek(location.x, location.y, Direction.down, hunter))
+            {
+                if (Retreat(this, Direction.up)) return true;
+            }
+            if (Seek(location.x, location.y, Direction.left, hunter))
+            {
+                if (Retreat(this, Direction.right)) return true;
+            }
+            if (Seek(location.x, location.y, Direction.right, hunter))
+            {
+                if (Retreat(this, Direction.left)) return true;
+            }
+            return false;
         }
     }
 }

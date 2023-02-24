@@ -21,7 +21,7 @@ namespace ZooManager
         static public List<List<Zone>> animalZones = new List<List<Zone>>();
         static public Zone holdingPen = new Zone(-1, -1, null);
 
-        static private Zoo zoo = new Zoo(); // Adjust: Add new Zoo class here to use the ActivateAnimals method. And keep zoo private, because it is only used in the Game object
+        // static private Zoo zoo = new Zoo(); // Adjust: Add new Zoo class here to use the ActivateAnimals method. And keep zoo private, because it is only used in the Game object
 
         static public void SetUpGame()
         {
@@ -76,7 +76,7 @@ namespace ZooManager
                 holdingPen.occupant.location.x = -1;
                 holdingPen.occupant.location.y = -1;
                 clickedZone.occupant = null;
-                zoo.ActivateAnimals();
+                Zoo.ActivateAnimals();
             }
             else if (holdingPen.occupant != null && clickedZone.occupant == null)
             {
@@ -86,7 +86,7 @@ namespace ZooManager
                 clickedZone.occupant.location = clickedZone.location;
                 holdingPen.occupant = null;
                 Console.WriteLine("Empty spot now holds: " + clickedZone.emoji);
-                zoo.ActivateAnimals();
+                Zoo.ActivateAnimals();
             }
             else if (holdingPen.occupant != null && clickedZone.occupant != null)
             {
@@ -100,8 +100,10 @@ namespace ZooManager
             if (holdingPen.occupant != null) return;
             if (animalType == "cat") holdingPen.occupant = new Cat("Fluffy");
             if (animalType == "mouse") holdingPen.occupant = new Mouse("Squeaky");
+            if (animalType == "raptor") holdingPen.occupant = new Raptor("Haughty"); // Improve Feature: (a) can hold the raptor
+            if (animalType == "chick") holdingPen.occupant = new Chick("Chirpy"); // Improve Feature: (a) can hold the chick
             Console.WriteLine($"Holding pen occupant at {holdingPen.occupant.location.x},{holdingPen.occupant.location.y}");
-            zoo.ActivateAnimals();
+            Zoo.ActivateAnimals();
         }
 
         // Adjust: Move ActivateAnimals method from Game to Zoo object.
