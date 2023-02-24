@@ -30,23 +30,25 @@ namespace ZooManager
          * foundation here for intelligence, since we actually check whether our escape
          * was succcesful -- unlike our cats, who just assume they'll get their prey!
          */
-        public void Flee()
+
+        // Adjust: Keep this method private, because it only be used in Mouse object.
+        private void Flee()
         {
-            if (Game.Seek(location.x, location.y, Direction.up, "cat"))
+            if (Seek(location.x, location.y, Direction.up, "cat"))
             {
-                if (Game.Retreat(this, Direction.down)) return;
+                if (Retreat(this, Direction.down)) return;
             }
-            if (Game.Seek(location.x, location.y, Direction.down, "cat"))
+            if (Seek(location.x, location.y, Direction.down, "cat"))
             {
-                if (Game.Retreat(this, Direction.up)) return;
+                if (Retreat(this, Direction.up)) return;
             }
-            if (Game.Seek(location.x, location.y, Direction.left, "cat"))
+            if (Seek(location.x, location.y, Direction.left, "cat"))
             {
-                if (Game.Retreat(this, Direction.right)) return;
+                if (Retreat(this, Direction.right)) return;
             }
-            if (Game.Seek(location.x, location.y, Direction.right, "cat"))
+            if (Seek(location.x, location.y, Direction.right, "cat"))
             {
-                if (Game.Retreat(this, Direction.left)) return;
+                if (Retreat(this, Direction.left)) return;
             }
         }
     }

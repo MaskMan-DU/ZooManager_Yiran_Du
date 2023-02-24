@@ -27,23 +27,25 @@ namespace ZooManager
          * cat also has a predator to avoid, since the cat may not want to run in
          * to a square that sets it up to be attacked!
          */
-        public void Hunt()
+
+        // Adjust: Keep this method private, because it only be used in Cat object.
+        private void Hunt()
         {
-            if (Game.Seek(location.x, location.y, Direction.up, "mouse"))
+            if (Seek(location.x, location.y, Direction.up, "mouse"))
             {
-                Game.Attack(this, Direction.up);
+                Attack(this, Direction.up);
             }
-            else if (Game.Seek(location.x, location.y, Direction.down, "mouse"))
+            else if (Seek(location.x, location.y, Direction.down, "mouse"))
             {
-                Game.Attack(this, Direction.down);
+                Attack(this, Direction.down);
             }
-            else if (Game.Seek(location.x, location.y, Direction.left, "mouse"))
+            else if (Seek(location.x, location.y, Direction.left, "mouse"))
             {
-                Game.Attack(this, Direction.left);
+                Attack(this, Direction.left);
             }
-            else if (Game.Seek(location.x, location.y, Direction.right, "mouse"))
+            else if (Seek(location.x, location.y, Direction.right, "mouse"))
             {
-                Game.Attack(this, Direction.right);
+                Attack(this, Direction.right);
             }
         }
     }
