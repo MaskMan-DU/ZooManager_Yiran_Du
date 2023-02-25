@@ -8,7 +8,7 @@ namespace ZooManager
     // Improve Feature: (a) Add a new subclass Raptor
     public class Raptor : Bird // Improve Feature: (b) Make Raptor a subclass of Bird
     {
-        private readonly List<string> prey = new List<string>() { "cat", "mouse" }; // Add a list to store the prey of Raptor and keep it readonly
+        private List<string> prey = new List<string>() { "cat", "mouse" }; // Add a list to store the prey of Raptor and keep it readonly
         public Raptor(string name)
         {
             emoji = "🦅";

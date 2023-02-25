@@ -10,9 +10,6 @@ namespace ZooManager
             species = "cat";
             this.name = name;
             reactionTime = new Random().Next(1, 6); // reaction time 1 (fast) to 5 (medium)
-            reactionTime = 1;
-
-            // isMoved = false; // Improve Featrue:
         }
 
         public override void Activate()

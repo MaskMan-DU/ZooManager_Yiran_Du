@@ -12,8 +12,6 @@ namespace ZooManager
             /* Note that Mouse reactionTime range is smaller than Cat reactionTime,
              * so mice are more likely to react to their surroundings faster than cats!
              */
-
-            // isMoved = false; // Improve Featrue: 
         }
 
         public override void Activate()

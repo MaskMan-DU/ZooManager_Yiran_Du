@@ -10,10 +10,9 @@ namespace ZooManager
         
         public Point location;
 
-        // public bool isMoved = false; // Improve Feature: (o) Add a new variable to remember is this animal moved
+        public bool isActivated; // Improve Feature: (o) Add a new variable to remember is this animal moved
 
-        public int liveTime = 0;
-
+        protected int liveTime = 0; // Improve Feature: (m) Add a new variable to remember the animal's live time
 
         public void ReportLocation()
         {
@@ -27,19 +26,21 @@ namespace ZooManager
             Console.WriteLine($"Animal {name} has lived for {liveTime} turns");
         }
 
-        /*/// <summary>
-        /// 
+        // Improve Feature: (o) Add a method to check if the animal has activated
+        /// <summary>
+        /// check if the animal has activated
         /// </summary>
-        /// <returns></returns>
-        public bool NotMoved()
+        /// <returns>If has activated, return true. Otherwise, return false</returns>
+        /// Is called by Zoo object
+        public virtual bool NotActivated()
         {
-            if (isMoved == true)
+            if (isActivated == true)
             {
-                isMoved = false;
+                isActivated = false;
                 return false;
             }
             return true;
-        }*/
+        }
 
 
         // Adjust: Move Seek method to Animal. Seek is a behavior that animal can do, it makes sence to put it in the animal class

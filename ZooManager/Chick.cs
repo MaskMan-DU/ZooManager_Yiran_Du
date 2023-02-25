@@ -18,11 +18,50 @@ namespace ZooManager
 
         public override void Activate()
         {
-            base.Activate();
-            Console.WriteLine("I am a chick. Chirp.");
-            BirdFlee("cat");
+            if (liveTime >= 3) // When the chick live in the zone for three or more than three turns
+            {
+                Mature();        
+            }
+            else // less than three turns
+            {
+                base.Activate();
+                Console.WriteLine("I am a chick. Chirp.");
+                BirdFlee("cat");
+            }       
         }
 
+        // Improve Feature: (n) Add a new method to make the chick become raptor.
+        /// <summary>
+        /// Change all content of chick. Tranfer Chick to Raptor
+        /// </summary>
+        /// Is called by Activate()
+        private void Mature()
+        {
+            emoji = "🦅";
+            species = "raptor";
+            this.name = "Haughty";
+            reactionTime = 1;
+            List<string> prey = new List<string>() { "cat", "mouse" };
 
+            base.Activate();
+            Console.WriteLine("I am a raptor. I'm hungry!");
+
+            if (Seek(location.x, location.y, Direction.up, prey[0]) || Seek(location.x, location.y, Direction.up, prey[1]))
+            {
+                Attack(this, Direction.up);
+            }
+            else if (Seek(location.x, location.y, Direction.down, prey[0]) || Seek(location.x, location.y, Direction.down, prey[1]))
+            {
+                Attack(this, Direction.down);
+            }
+            else if (Seek(location.x, location.y, Direction.left, prey[0]) || Seek(location.x, location.y, Direction.left, prey[1]))
+            {
+                Attack(this, Direction.left);
+            }
+            else if (Seek(location.x, location.y, Direction.right, prey[0]) || Seek(location.x, location.y, Direction.right, prey[1]))
+            {
+                Attack(this, Direction.right);
+            }
+        }
     }
 }
