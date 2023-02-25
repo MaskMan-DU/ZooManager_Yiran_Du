@@ -4,6 +4,7 @@ namespace ZooManager
 {
     public class Cat : Animal
     {
+        private int turnsNotEat = 0; // Improve Feature: (p) Set up a variable to remember how many turns the animal does not eat
         public Cat(string name)
         {
             emoji = "🐱";
@@ -14,12 +15,23 @@ namespace ZooManager
 
         public override void Activate()
         {
-            base.Activate();
-            Console.WriteLine("I am a cat. Meow.");
-            if (!FleeAwayHunter("raptor"))
+            if (turnsNotEat > 3) // Improve Feature: (p) If the turnsNotEat more than 3. The Cat will starve to death and become a corpse
             {
-                Hunt();
-            }    
+                emoji = "☠";
+                species = "";
+                name = "Corpse";
+                reactionTime = 0;
+            }
+            else // not hungry
+            {
+                base.Activate();
+                Console.WriteLine("I am a cat. Meow.");
+                if (!FleeAwayHunter("raptor"))
+                {
+                    Hunt();
+                }
+            }
+                
         }
 
         /* Note that our cat is currently not very clever about its hunting.
@@ -32,26 +44,37 @@ namespace ZooManager
          */
 
         // Adjust: Keep this method private, because it only be used in Cat object.
+        // Improve Featrue: (e) Make cat can hunt mouse and chick
         private void Hunt()
         {
             if (Seek(location.x, location.y, Direction.up, "mouse") || Seek(location.x, location.y, Direction.up, "chick"))
             {
                 Attack(this, Direction.up);
+                turnsNotEat = 0;
             }
             else if (Seek(location.x, location.y, Direction.down, "mouse") || Seek(location.x, location.y, Direction.down, "chick"))
             {
                 Attack(this, Direction.down);
+                turnsNotEat = 0;
             }
             else if (Seek(location.x, location.y, Direction.left, "mouse") || Seek(location.x, location.y, Direction.left, "chick"))
             {
                 Attack(this, Direction.left);
+                turnsNotEat = 0;
             }
             else if (Seek(location.x, location.y, Direction.right, "mouse") || Seek(location.x, location.y, Direction.right, "chick"))
             {
                 Attack(this, Direction.right);
+                turnsNotEat = 0;
             }
+            else
+            {
+                turnsNotEat++;
+            }
+
         }
 
+        // Improve Feature: (e) Make Cat flee from his predator, raptor
         private bool FleeAwayHunter(string hunter)
         {
             if (Seek(location.x, location.y, Direction.up, hunter))

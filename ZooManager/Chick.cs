@@ -8,6 +8,7 @@ namespace ZooManager
     // Improve Feature: (c) Add a new subclass of bird, Chick. It will flee from Cat.
     public class Chick : Bird
     {
+        private int turnsNotEat = 0; // Improve Feature: (p) Set up a variable to remember how many turns the animal does not eat
         public Chick(string name)
         {
             emoji = "🐥";
@@ -18,7 +19,7 @@ namespace ZooManager
 
         public override void Activate()
         {
-            if (liveTime >= 3) // When the chick live in the zone for three or more than three turns
+            if (liveTime > 3) // When the chick live in the zone for three or more than three turns
             {
                 Mature();        
             }
@@ -43,25 +44,45 @@ namespace ZooManager
             reactionTime = 1;
             List<string> prey = new List<string>() { "cat", "mouse" };
 
-            base.Activate();
-            Console.WriteLine("I am a raptor. I'm hungry!");
+            
+            if (turnsNotEat > 3) // Improve Feature: (p) If the turnsNotEat more than 3. The Raptor will starve to death and become a corpse
+            {
+                emoji = "☠";
+                species = "";
+                name = "Corpse";
+                reactionTime = 0;
+            }
+            else
+            {
+                base.Activate();
+                Console.WriteLine("I am a raptor. I'm hungry!");
 
-            if (Seek(location.x, location.y, Direction.up, prey[0]) || Seek(location.x, location.y, Direction.up, prey[1]))
-            {
-                Attack(this, Direction.up);
+                if (Seek(location.x, location.y, Direction.up, prey[0]) || Seek(location.x, location.y, Direction.up, prey[1]))
+                {
+                    Attack(this, Direction.up);
+                    turnsNotEat = 0;
+                }
+                else if (Seek(location.x, location.y, Direction.down, prey[0]) || Seek(location.x, location.y, Direction.down, prey[1]))
+                {
+                    Attack(this, Direction.down);
+                    turnsNotEat = 0;
+                }
+                else if (Seek(location.x, location.y, Direction.left, prey[0]) || Seek(location.x, location.y, Direction.left, prey[1]))
+                {
+                    Attack(this, Direction.left);
+                    turnsNotEat = 0;
+                }
+                else if (Seek(location.x, location.y, Direction.right, prey[0]) || Seek(location.x, location.y, Direction.right, prey[1]))
+                {
+                    Attack(this, Direction.right);
+                    turnsNotEat = 0;
+                }
+                else
+                {
+                    turnsNotEat++;
+                }
             }
-            else if (Seek(location.x, location.y, Direction.down, prey[0]) || Seek(location.x, location.y, Direction.down, prey[1]))
-            {
-                Attack(this, Direction.down);
-            }
-            else if (Seek(location.x, location.y, Direction.left, prey[0]) || Seek(location.x, location.y, Direction.left, prey[1]))
-            {
-                Attack(this, Direction.left);
-            }
-            else if (Seek(location.x, location.y, Direction.right, prey[0]) || Seek(location.x, location.y, Direction.right, prey[1]))
-            {
-                Attack(this, Direction.right);
-            }
+                
         }
     }
 }
