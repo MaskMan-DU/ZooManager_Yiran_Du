@@ -4,7 +4,7 @@ namespace ZooManager
     public class Animal
     {
         public string emoji;
-        protected string species; // Adjust: Change it from public to protected, because this variable only be used in animal class and class inherited from animal class
+        public string species; 
         protected string name; // Adjust: Change it from public to protected, because this variable only be used in animal class and class inherited from animal class
         public int reactionTime = 5; // default reaction time for animals (1 - 10)
         
@@ -32,7 +32,7 @@ namespace ZooManager
         /// </summary>
         /// <returns>If has activated, return true. Otherwise, return false</returns>
         /// Is called by Zoo object
-        public virtual bool NotActivated()
+        public bool NotActivated()
         {
             if (isActivated == true)
             {

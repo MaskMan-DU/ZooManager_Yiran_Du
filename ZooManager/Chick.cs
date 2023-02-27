@@ -19,7 +19,7 @@ namespace ZooManager
 
         public override void Activate()
         {
-            if (liveTime > 3) // When the chick live in the zone for three or more than three turns
+            if (liveTime >= 3) // When the chick live in the zone for three or more than three turns
             {
                 Mature();        
             }
@@ -52,37 +52,44 @@ namespace ZooManager
                 name = "Corpse";
                 reactionTime = 0;
             }
-            else
+            else // not starve to death
             {
                 base.Activate();
                 Console.WriteLine("I am a raptor. I'm hungry!");
 
-                if (Seek(location.x, location.y, Direction.up, prey[0]) || Seek(location.x, location.y, Direction.up, prey[1]))
-                {
-                    Attack(this, Direction.up);
-                    turnsNotEat = 0;
-                }
-                else if (Seek(location.x, location.y, Direction.down, prey[0]) || Seek(location.x, location.y, Direction.down, prey[1]))
-                {
-                    Attack(this, Direction.down);
-                    turnsNotEat = 0;
-                }
-                else if (Seek(location.x, location.y, Direction.left, prey[0]) || Seek(location.x, location.y, Direction.left, prey[1]))
-                {
-                    Attack(this, Direction.left);
-                    turnsNotEat = 0;
-                }
-                else if (Seek(location.x, location.y, Direction.right, prey[0]) || Seek(location.x, location.y, Direction.right, prey[1]))
-                {
-                    Attack(this, Direction.right);
-                    turnsNotEat = 0;
-                }
-                else
-                {
-                    turnsNotEat++;
-                }
+                Console.WriteLine("Turns not eat" + turnsNotEat);
+                CatchPrey(prey);
+               
             }
                 
+        }
+
+        protected override void CatchPrey(List<string> prey)
+        {
+            if (Seek(location.x, location.y, Direction.up, prey[0]) || Seek(location.x, location.y, Direction.up, prey[1]))
+            {
+                Attack(this, Direction.up);
+                turnsNotEat = 0;
+            }
+            else if (Seek(location.x, location.y, Direction.down, prey[0]) || Seek(location.x, location.y, Direction.down, prey[1]))
+            {
+                Attack(this, Direction.down);
+                turnsNotEat = 0;
+            }
+            else if (Seek(location.x, location.y, Direction.left, prey[0]) || Seek(location.x, location.y, Direction.left, prey[1]))
+            {
+                Attack(this, Direction.left);
+                turnsNotEat = 0;
+            }
+            else if (Seek(location.x, location.y, Direction.right, prey[0]) || Seek(location.x, location.y, Direction.right, prey[1]))
+            {
+                Attack(this, Direction.right);
+                turnsNotEat = 0;
+            }
+            else
+            {
+                turnsNotEat++;
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ namespace ZooManager
                 name = "Corpse";
                 reactionTime = 0;
             }
-            else
+            else // not starve to death
             {
                 base.Activate();
                 Console.WriteLine("I am a raptor. I'm hungry!");
@@ -36,7 +36,9 @@ namespace ZooManager
                 /*CatchPrey("cat");
                 CatchPrey("mouse");*/
 
-                RaptorHunt(prey); // Improve Feature: (d) The Raptor will hunt both Cat and Mouse.
+                Console.WriteLine("Turns not eat" + turnsNotEat);
+                CatchPrey(prey); // Improve Feature: (d) The Raptor will hunt both Cat and Mouse.
+                
             }
             
         }
@@ -46,7 +48,7 @@ namespace ZooManager
         /// </summary>
         /// <param name="prey">Prey list of the Raptor</param>
         /// Is called by Activate method
-        private void RaptorHunt(List<string> prey)
+        protected override void CatchPrey(List<string> prey)
         {
             if (Seek(location.x, location.y, Direction.up, prey[0]) || Seek(location.x, location.y, Direction.up, prey[1]))
             {

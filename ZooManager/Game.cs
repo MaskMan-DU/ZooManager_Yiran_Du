@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace ZooManager
 {
-    // Keep Game static is meaningful, it can use variable and methods easily in other object.
+    // Keep Game static is meaningful, it can use variable and methods easily in other object. And if some variable like numCellsX changed, numCellsX should be changed in every objects that use this varible. Static can make that.
+    // Adjust: Only ActivateAnimals() can be private, but I removed it to a new clas.
     public static class Game
     {
         static public int numCellsX = 4;
@@ -12,16 +13,8 @@ namespace ZooManager
         private static readonly int maxCellsX = 10; 
         private static readonly int maxCellsY = 10;
 
-        public static int MaxCellsX { get { return maxCellsX; } } // Adjust: Encapsulation the maxCellsX, make it be readonly. Because it shouldn't change
-        public static int MaxCellsY { get { return maxCellsY; } } // Adjust: Encapsulation the maxCellsY, make it be readonly. Because it shouldn't change
-
-
-
-
         static public List<List<Zone>> animalZones = new List<List<Zone>>();
         static public Zone holdingPen = new Zone(-1, -1, null);
-
-        // static private Zoo zoo = new Zoo(); // Adjust: Add new Zoo class here to use the ActivateAnimals method. And keep zoo private, because it is only used in the Game object
 
         static public void SetUpGame()
         {
@@ -38,7 +31,7 @@ namespace ZooManager
         {
             if (d == Direction.down || d == Direction.up)
             {
-                if (numCellsY >= MaxCellsY) return; // hit maximum height!
+                if (numCellsY >= maxCellsY) return; // hit maximum height!
                 List<Zone> rowList = new List<Zone>();
                 for (var x = 0; x < numCellsX; x++)
                 {
@@ -50,7 +43,7 @@ namespace ZooManager
             }
             else // must be left or right...
             {
-                if (numCellsX >= MaxCellsX) return; // hit maximum width!
+                if (numCellsX >= maxCellsX) return; // hit maximum width!
                 for (var y = 0; y < numCellsY; y++)
                 {
                     var rowList = animalZones[y];

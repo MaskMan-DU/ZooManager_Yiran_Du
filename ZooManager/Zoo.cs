@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace ZooManager
 {
-    // Adjust: Move ActivateAnimals method from Game to Zoo object. Because this method manages Zone information and changes 
+    // Adjust: Move ActivateAnimals method from Game to Zoo object. Because this method manages Zone information
+
     public static class Zoo
     {
         static int reactionTimeNow = 0; // Remember animal Activate time.
@@ -28,7 +29,7 @@ namespace ZooManager
                                 zone.occupant.isActivated = false;
                             }
 
-                            if (zone.occupant.NotActivated()) // Improve Feature: (o)Add a check condition.Check if this animal has moved.If it has moved, change the variable isMoved to false and stop activate this animal again.
+                            if (zone.occupant.NotActivated()) // Improve Feature: (o) Add a check condition.Check if this animal has moved.If it has moved, change the variable isMoved to false and stop activate this animal again.
                             {
                                 zone.occupant.isActivated = true; // Improve Feature: (o) If the animal has moved, remember it. 
                                 // isMoved must change first, otherwise there will be errors. Because after Activate() this location will lose the reference.
