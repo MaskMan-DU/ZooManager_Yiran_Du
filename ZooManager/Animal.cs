@@ -12,7 +12,7 @@ namespace ZooManager
 
         public bool isActivated; // Improve Feature: (o) Add a new variable to remember is this animal moved
 
-        protected int liveTime = 0; // Improve Feature: (m) Add a new variable to remember the animal's live time
+        protected int liveTime = 1; // Improve Feature: (m) Add a new variable to remember the animal's live time
 
         public void ReportLocation()
         {
@@ -22,8 +22,8 @@ namespace ZooManager
         virtual public void Activate()
         {
             Console.WriteLine($"Animal {name} at {location.x},{location.y} activated");
-            liveTime++;
             Console.WriteLine($"Animal {name} has lived for {liveTime} turns");
+            liveTime++;   
         }
 
         // Improve Feature: (o) Add a method to check if the animal has activated

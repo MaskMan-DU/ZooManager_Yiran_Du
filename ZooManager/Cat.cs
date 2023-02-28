@@ -20,7 +20,6 @@ namespace ZooManager
                 emoji = "☠";
                 species = "";
                 name = "Corpse";
-                reactionTime = 0;
             }
             else // not hungry
             {

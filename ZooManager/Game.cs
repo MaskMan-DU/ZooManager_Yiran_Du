@@ -4,14 +4,14 @@ using System.Collections.Generic;
 namespace ZooManager
 {
     // Keep Game static is meaningful, it can use variable and methods easily in other object. And if some variable like numCellsX changed, numCellsX should be changed in every objects that use this varible. Static can make that.
-    // Adjust: Only ActivateAnimals() can be private, but I removed it to a new clas.
+    // Adjust: ActivateAnimals() can be private, but I removed it to a new clas.
     public static class Game
     {
         static public int numCellsX = 4;
         static public int numCellsY = 4;
 
-        private static readonly int maxCellsX = 10; 
-        private static readonly int maxCellsY = 10;
+        private static int maxCellsX = 10; 
+        private static int maxCellsY = 10;
 
         static public List<List<Zone>> animalZones = new List<List<Zone>>();
         static public Zone holdingPen = new Zone(-1, -1, null);
@@ -94,7 +94,7 @@ namespace ZooManager
             if (animalType == "cat") holdingPen.occupant = new Cat("Fluffy");
             if (animalType == "mouse") holdingPen.occupant = new Mouse("Squeaky");
             if (animalType == "raptor") holdingPen.occupant = new Raptor("Haughty"); // Improve Feature: (a) can hold the raptor
-            if (animalType == "chick") holdingPen.occupant = new Chick("Chirpy"); // Improve Feature: (a) can hold the chick
+            if (animalType == "chick") holdingPen.occupant = new Chick("Chirpy"); // Improve Feature: (c) can hold the chick
             Console.WriteLine($"Holding pen occupant at {holdingPen.occupant.location.x},{holdingPen.occupant.location.y}");
             Zoo.ActivateAnimals();
         }
