@@ -31,9 +31,9 @@ namespace ZooManager
         /// Is called by Activate()
         private void Mature()
         {
-            if (liveTime >= 3)
+            if (liveTime >= 3) // When the chick has lived for more than 3 turns
             {
-                Game.animalZones[location.y][location.x].occupant = new Raptor("Youthful Raptor");
+                Game.animalZones[location.y][location.x].occupant = new Raptor("Youthful Raptor"); // transfer the chick to raptor
             }      
         }
     }
