@@ -25,7 +25,7 @@ namespace ZooManager
             {
                 base.Activate();
                 Console.WriteLine("I am a cat. Meow.");
-                if (!FleeAwayHunter("raptor"))
+                if (!FleeAwayHunter("raptor")) // no raptor nearby
                 {
                     Hunt();
                 }
@@ -46,27 +46,27 @@ namespace ZooManager
         // Improve Featrue: (e) Make cat can hunt mouse and chick
         private void Hunt()
         {
-            if (Seek(location.x, location.y, Direction.up, "mouse") || Seek(location.x, location.y, Direction.up, "chick"))
+            if (Seek(location.x, location.y, Direction.up, "mouse") || Seek(location.x, location.y, Direction.up, "chick")) // "Up" square, is mouse or chick
             {
                 Attack(this, Direction.up);
                 turnsNotEat = 0;
             }
-            else if (Seek(location.x, location.y, Direction.down, "mouse") || Seek(location.x, location.y, Direction.down, "chick"))
+            else if (Seek(location.x, location.y, Direction.down, "mouse") || Seek(location.x, location.y, Direction.down, "chick")) // "Down" square, is mouse or chick
             {
                 Attack(this, Direction.down);
                 turnsNotEat = 0;
             }
-            else if (Seek(location.x, location.y, Direction.left, "mouse") || Seek(location.x, location.y, Direction.left, "chick"))
+            else if (Seek(location.x, location.y, Direction.left, "mouse") || Seek(location.x, location.y, Direction.left, "chick")) // "Left" square, is mouse or chick
             {
                 Attack(this, Direction.left);
                 turnsNotEat = 0;
             }
-            else if (Seek(location.x, location.y, Direction.right, "mouse") || Seek(location.x, location.y, Direction.right, "chick"))
+            else if (Seek(location.x, location.y, Direction.right, "mouse") || Seek(location.x, location.y, Direction.right, "chick")) // "Right" square, is mouse or chick
             {
                 Attack(this, Direction.right);
                 turnsNotEat = 0;
             }
-            else
+            else // no mouse or chick nearby 
             {
                 turnsNotEat++;
             }
@@ -76,23 +76,23 @@ namespace ZooManager
         // Improve Feature: (e) Make Cat flee from his predator, raptor
         private bool FleeAwayHunter(string hunter)
         {
-            if (Seek(location.x, location.y, Direction.up, hunter))
+            if (Seek(location.x, location.y, Direction.up, hunter)) // "Up" square, is the predator of Cat
             {
-                if (Retreat(this, Direction.down)) return true;
+                if (Retreat(this, Direction.down)) return true; // Escapes Down and returns " true"
             }
-            if (Seek(location.x, location.y, Direction.down, hunter))
+            if (Seek(location.x, location.y, Direction.down, hunter)) // "Down" square, is the predator of Cat
             {
-                if (Retreat(this, Direction.up)) return true;
+                if (Retreat(this, Direction.up)) return true; // Escapes Up and returns " true"
             }
-            if (Seek(location.x, location.y, Direction.left, hunter))
+            if (Seek(location.x, location.y, Direction.left, hunter)) // "Left" square, is the predator of Cat
             {
-                if (Retreat(this, Direction.right)) return true;
+                if (Retreat(this, Direction.right)) return true; // Escapes Right and returns " true"
             }
-            if (Seek(location.x, location.y, Direction.right, hunter))
+            if (Seek(location.x, location.y, Direction.right, hunter)) // "Right" square, is the predator of Cat
             {
-                if (Retreat(this, Direction.left)) return true;
+                if (Retreat(this, Direction.left)) return true; // Escapes Left and returns " true"
             }
-            return false;
+            return false; // no predator nearby, return "false"
         }
     }
 }
