@@ -36,10 +36,10 @@ namespace ZooManager
         {
             if (isActivated == true)
             {
-                isActivated = false;
-                return false;
+                
+                return isActivated = false;
             }
-            return true;
+            return isActivated = true;
         }
 
 

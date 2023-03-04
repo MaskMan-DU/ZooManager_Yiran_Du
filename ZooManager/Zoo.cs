@@ -22,17 +22,15 @@ namespace ZooManager
                     {
                         var zone = Game.animalZones[y][x];
 
-                        if (zone.occupant != null && zone.occupant.reactionTime == r) 
+                        if (zone.occupant != null && reactionTimeNow < r) // Improve Feature: (o) reset the isActivated if the animal move to up or right. When the animal move to up or right, it will can not use NotActivated method to reset the isActivated value.
                         {
-                            if (reactionTimeNow < r) // Improve Feature: (o) reset the isActivated if the animal move to up or right. When the animal move to up or right, it will can not use NotActivated method to reset the isActivated value.
-                            {
-                                zone.occupant.isActivated = false;
-                            }
+                            zone.occupant.isActivated = false;
+                        }
 
+                        if (zone.occupant != null && zone.occupant.reactionTime == r)
+                        {
                             if (zone.occupant.NotActivated()) // Improve Feature: (o) Add a check condition.Check if this animal has moved.If it has moved, change the variable isMoved to false and stop activate this animal again.
                             {
-                                zone.occupant.isActivated = true; // Improve Feature: (o) If the animal has moved, remember it. 
-                                // isMoved must change first, otherwise there will be errors. Because after Activate() this location will lose the reference.
                                 zone.occupant.Activate();
                             }
 
