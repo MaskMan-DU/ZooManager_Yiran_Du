@@ -3,13 +3,15 @@ namespace ZooManager
 {
     public class Zone
     {
-        private Animal _occupant = null;
-        public Animal occupant
+        private Occupant _occupant = null;
+        public Occupant occupant
         {
             get { return _occupant; }
-            set {
+            set
+            {
                 _occupant = value;
-                if (_occupant != null) {
+                if (_occupant != null)
+                {
                     _occupant.location = location;
                 }
             }
@@ -30,17 +32,17 @@ namespace ZooManager
         {
             get
             {
-                if (occupant == null) return "";
-                return occupant.reactionTime.ToString();
+                if (occupant as Animal == null) return "";
+                return ((Animal)occupant).reactionTime.ToString();
             }
         }
 
-        public Zone(int x, int y, Animal animal)
+        public Zone(int x, int y, Occupant occupant)
         {
             location.x = x;
             location.y = y;
 
-            occupant = animal;
+            this.occupant = occupant;
         }
     }
 }

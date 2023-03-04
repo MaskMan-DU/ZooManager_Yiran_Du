@@ -1,8 +1,9 @@
 ﻿using System;
 namespace ZooManager
 {
-    public class Mouse : Animal
+    public class Mouse : Animal, IPrey
     {
+        public string Predator { get { return "cat"; } }
         public Mouse(string name)
         {
             emoji = "🐭";
@@ -18,7 +19,7 @@ namespace ZooManager
         {
             base.Activate();
             Console.WriteLine("I am a mouse. Squeak.");
-            Flee();
+            Flee(Predator);
         }
 
         /* Note that our mouse is (so far) a teeny bit more strategic than our cat.
@@ -32,43 +33,43 @@ namespace ZooManager
          */
 
         // Adjust: Keep this method private, because it only be used in Mouse object.
-        private void Flee()
+        public bool Flee(string hunter)
         {
             int runDistance;
-            if (Seek(location.x, location.y, Direction.up, "cat"))
+            if (Seek(location.x, location.y, Direction.up, hunter))
             {
                 runDistance = Move(this, Direction.up, 2);
                 if (runDistance == 0)
                 {
-                    return;
+                    return true;
                 }
                 else if (runDistance == 1)
                 {
                     Console.WriteLine("The mouse run from up cat for 1 square!");
-                    return;
+                    return true;
                 }
                 else if (runDistance == 2)
                 {
                     Console.WriteLine("The mouse run from up cat for 2 squares!");
-                    return;
+                    return true;
                 }
             }
-            if (Seek(location.x, location.y, Direction.down, "cat"))
+            if (Seek(location.x, location.y, Direction.down, hunter))
             {
                 runDistance = Move(this, Direction.down, 2);
                 if (runDistance == 0)
                 {
-                    return;
+                    return true;
                 }
                 else if (runDistance == 1)
                 {
                     Console.WriteLine("The mouse run from down cat for 1 square!");
-                    return;
+                    return true;
                 }
                 else if (runDistance == 2)
                 {
                     Console.WriteLine("The mouse run from doiwn cat for 2 squares!");
-                    return;
+                    return true;
                 }
             }
             if (Seek(location.x, location.y, Direction.left, "cat"))
@@ -76,37 +77,38 @@ namespace ZooManager
                 runDistance = Move(this, Direction.left, 2);
                 if (runDistance == 0)
                 {
-                    return;
+                    return true;
                 }
                 else if (runDistance == 1)
                 {
                     Console.WriteLine("The mouse run from left cat for 1 square!");
-                    return;
+                    return true;
                 }
                 else if (runDistance == 2)
                 {
                     Console.WriteLine("The mouse run from left cat for 2 squares!");
-                    return;
+                    return true;
                 }
             }
-            if (Seek(location.x, location.y, Direction.right, "cat"))
+            if (Seek(location.x, location.y, Direction.right, hunter))
             {
                 runDistance = Move(this, Direction.right, 2);
                 if (runDistance == 0)
                 {
-                    return;
+                    return true;
                 }
                 else if (runDistance == 1)
                 {
                     Console.WriteLine("The mouse run from right cat for 1 square!");
-                    return;
+                    return true;
                 }
                 else if (runDistance == 2)
                 {
                     Console.WriteLine("The mouse run from right cat for 2 squares!");
-                    return;
+                    return true;
                 }
             }
+            return false;
         }
     }
 }

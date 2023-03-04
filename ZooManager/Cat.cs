@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ZooManager
 {
-    public class Cat : Animal
+    public class Cat : Animal, IPredator, IPrey
     {
         private int turnsNotEat = 0; // Improve Feature: (p) Set up a variable to remember how many turns the animal does not eat
+        public int TurnsNotEat { get { return turnsNotEat; } set { turnsNotEat = value; } }
+
+        public string Predator { get { return "raptor"; } }
+        public List<string> Prey { get { return new List<string>() { "mouse", "chick" }; } }
+
         public Cat(string name)
         {
             emoji = "🐱";
@@ -15,7 +21,7 @@ namespace ZooManager
 
         public override void Activate()
         {
-            if (turnsNotEat > 3) // Improve Feature: (p) If the turnsNotEat more than 3. The Cat will starve to death and become a corpse
+            if (TurnsNotEat > 3) // Improve Feature: (p) If the turnsNotEat more than 3. The Cat will starve to death and become a corpse
             {
                 emoji = "☠";
                 species = "";
@@ -25,9 +31,9 @@ namespace ZooManager
             {
                 base.Activate();
                 Console.WriteLine("I am a cat. Meow.");
-                if (!FleeAwayHunter("raptor")) // no raptor nearby
+                if (!Flee(Predator)) // no raptor nearby
                 {
-                    Hunt();
+                    Hunt(Prey);
                 }
             }
                 
@@ -44,37 +50,38 @@ namespace ZooManager
 
         // Adjust: Keep this method private, because it only be used in Cat object.
         // Improve Featrue: (e) Make cat can hunt mouse and chick
-        private void Hunt()
+        public void Hunt(List<string> prey)
         {
-            if (Seek(location.x, location.y, Direction.up, "mouse") || Seek(location.x, location.y, Direction.up, "chick")) // "Up" square, is mouse or chick
+            if (Seek(location.x, location.y, Direction.up, prey[0]) || Seek(location.x, location.y, Direction.up, prey[1])) // "Up" square, is mouse or chick
             {
                 Attack(this, Direction.up);
-                turnsNotEat = 0;
+                TurnsNotEat = 0;
             }
-            else if (Seek(location.x, location.y, Direction.down, "mouse") || Seek(location.x, location.y, Direction.down, "chick")) // "Down" square, is mouse or chick
+            else if (Seek(location.x, location.y, Direction.down, prey[0]) || Seek(location.x, location.y, Direction.down, prey[1])) // "Down" square, is mouse or chick
             {
                 Attack(this, Direction.down);
-                turnsNotEat = 0;
+                TurnsNotEat = 0;
             }
-            else if (Seek(location.x, location.y, Direction.left, "mouse") || Seek(location.x, location.y, Direction.left, "chick")) // "Left" square, is mouse or chick
+            else if (Seek(location.x, location.y, Direction.left, prey[0]) || Seek(location.x, location.y, Direction.left, prey[1])) // "Left" square, is mouse or chick
             {
                 Attack(this, Direction.left);
-                turnsNotEat = 0;
+                TurnsNotEat = 0;
             }
-            else if (Seek(location.x, location.y, Direction.right, "mouse") || Seek(location.x, location.y, Direction.right, "chick")) // "Right" square, is mouse or chick
+            else if (Seek(location.x, location.y, Direction.right, prey[0]) || Seek(location.x, location.y, Direction.right, prey[1])) // "Right" square, is mouse or chick
             {
                 Attack(this, Direction.right);
-                turnsNotEat = 0;
+                TurnsNotEat = 0;
             }
             else // no mouse or chick nearby 
             {
-                turnsNotEat++;
+                TurnsNotEat++;
             }
 
         }
 
         // Improve Feature: (e) Make Cat flee from his predator, raptor
-        private bool FleeAwayHunter(string hunter)
+        /*private bool FleeAwayHunter(string hunter)*/
+        public bool Flee(string hunter)
         {
             if (Seek(location.x, location.y, Direction.up, hunter)) // "Up" square, is the predator of Cat
             {
@@ -94,6 +101,7 @@ namespace ZooManager
             }
             return false; // no predator nearby, return "false"
         }
+
     }
 }
 

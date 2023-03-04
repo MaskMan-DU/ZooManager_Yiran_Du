@@ -8,8 +8,11 @@ namespace ZooManager
     // Improve Feature: (a) Add a new subclass Raptor
     public class Raptor : Bird // Improve Feature: (b) Make Raptor a subclass of Bird
     {
-        private List<string> prey = new List<string>() { "cat", "mouse" }; // Add a list to store the prey of Raptor and keep it readonly
+        // private List<string> prey = new List<string>() { "cat", "mouse" }; // Add a list to store the prey of Raptor and keep it readonly
+        public override List<string> Prey { get { return new List<string>() { "cat", "mouse" }; } }
+
         private int turnsNotEat = 0; // Improve Feature: (p) Set up a variable to remember how many turns the animal does not eat
+        public override int TurnsNotEat { get { return turnsNotEat; } set { turnsNotEat = value; } } 
 
         public Raptor(string name)
         {
@@ -21,7 +24,7 @@ namespace ZooManager
 
         public override void Activate()
         {
-            if (turnsNotEat > 3) // Improve Feature: (p) If the turnsNotEat more than 3. The Raptor will starve to death and become a corpse
+            if (TurnsNotEat > 3) // Improve Feature: (p) If the turnsNotEat more than 3. The Raptor will starve to death and become a corpse
             {
                 emoji = "☠";
                 species = "";
@@ -35,8 +38,8 @@ namespace ZooManager
                 /*CatchPrey("cat");
                 CatchPrey("mouse");*/
 
-                Console.WriteLine("Turns not eat" + turnsNotEat);
-                CatchPrey(prey); // Improve Feature: (d) The Raptor will hunt both Cat and Mouse.
+                Console.WriteLine("Turns not eat" + TurnsNotEat);
+                Hunt(Prey); // Improve Feature: (d) The Raptor will hunt both Cat and Mouse.
                 
             }
             
@@ -47,29 +50,29 @@ namespace ZooManager
         /// </summary>
         /// <param name="prey">Prey list of the Raptor</param>
         /// Is called by Activate method
-        protected override void CatchPrey(List<string> prey)
+        public override void Hunt(List<string> prey)
         {
             if (Seek(location.x, location.y, Direction.up, prey[0]) || Seek(location.x, location.y, Direction.up, prey[1]))
             {
                 Attack(this, Direction.up);
-                turnsNotEat = 0;
+                TurnsNotEat = 0;
             }else if (Seek(location.x, location.y, Direction.down, prey[0]) || Seek(location.x, location.y, Direction.down, prey[1]))
             {
                 Attack(this, Direction.down);
-                turnsNotEat = 0;
+                TurnsNotEat = 0;
             }else if (Seek(location.x, location.y, Direction.left, prey[0]) || Seek(location.x, location.y, Direction.left, prey[1]))
             {
                 Attack(this, Direction.left);
-                turnsNotEat = 0;
+                TurnsNotEat = 0;
             }
             else if (Seek(location.x, location.y, Direction.right, prey[0]) || Seek(location.x, location.y, Direction.right, prey[1]))
             {
                 Attack(this, Direction.right);
-                turnsNotEat = 0;
+                TurnsNotEat = 0;
             }
             else
             {
-                turnsNotEat++;
+                TurnsNotEat++;
             }   
         }
 

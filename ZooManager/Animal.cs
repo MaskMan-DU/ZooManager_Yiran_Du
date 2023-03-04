@@ -3,23 +3,14 @@ using System.Collections.Generic;
 
 namespace ZooManager
 {
-    public class Animal
+    public class Animal: Occupant
     {
-        public string emoji;
-        public string species; 
         protected string name; // Adjust: Change it from public to protected, because this variable only be used in animal class and class inherited from animal class
         public int reactionTime = 5; // default reaction time for animals (1 - 10)
         
-        public Point location;
-
         public bool isActivated = false; // Improve Feature: (o) Add a new variable to remember is this animal moved
 
         protected int liveTime = 1; // Improve Feature: (m) Add a new variable to remember the animal's live time
-
-        public void ReportLocation()
-        {
-            Console.WriteLine($"I am at {location.x},{location.y}");
-        }
 
         virtual public void Activate()
         {

@@ -8,6 +8,7 @@ namespace ZooManager
     // Improve Feature: (c) Add a new subclass of bird, Chick. It will flee from Cat.
     public class Chick : Bird
     {
+        public override string Predator { get { return "Cat"; } }
         public Chick(string name)
         {
             emoji = "🐥";
@@ -21,7 +22,7 @@ namespace ZooManager
              Mature();        
              base.Activate();
              Console.WriteLine("I am a chick. Chirp.");
-             BirdFlee("cat");     
+             Flee(Predator);     
         }
 
         // Improve Feature: (n) Add a new method to make the chick become raptor. After 3 turns
