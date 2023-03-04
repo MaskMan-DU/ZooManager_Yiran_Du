@@ -34,21 +34,78 @@ namespace ZooManager
         // Adjust: Keep this method private, because it only be used in Mouse object.
         private void Flee()
         {
+            int runDistance;
             if (Seek(location.x, location.y, Direction.up, "cat"))
             {
-                if (Retreat(this, Direction.down)) return;
+                runDistance = Move(this, Direction.up, 2);
+                if (runDistance == 0)
+                {
+                    return;
+                }
+                else if (runDistance == 1)
+                {
+                    Console.WriteLine("The mouse run from up cat for 1 square!");
+                    return;
+                }
+                else if (runDistance == 2)
+                {
+                    Console.WriteLine("The mouse run from up cat for 2 squares!");
+                    return;
+                }
             }
             if (Seek(location.x, location.y, Direction.down, "cat"))
             {
-                if (Retreat(this, Direction.up)) return;
+                runDistance = Move(this, Direction.down, 2);
+                if (runDistance == 0)
+                {
+                    return;
+                }
+                else if (runDistance == 1)
+                {
+                    Console.WriteLine("The mouse run from down cat for 1 square!");
+                    return;
+                }
+                else if (runDistance == 2)
+                {
+                    Console.WriteLine("The mouse run from doiwn cat for 2 squares!");
+                    return;
+                }
             }
             if (Seek(location.x, location.y, Direction.left, "cat"))
             {
-                if (Retreat(this, Direction.right)) return;
+                runDistance = Move(this, Direction.left, 2);
+                if (runDistance == 0)
+                {
+                    return;
+                }
+                else if (runDistance == 1)
+                {
+                    Console.WriteLine("The mouse run from left cat for 1 square!");
+                    return;
+                }
+                else if (runDistance == 2)
+                {
+                    Console.WriteLine("The mouse run from left cat for 2 squares!");
+                    return;
+                }
             }
             if (Seek(location.x, location.y, Direction.right, "cat"))
             {
-                if (Retreat(this, Direction.left)) return;
+                runDistance = Move(this, Direction.right, 2);
+                if (runDistance == 0)
+                {
+                    return;
+                }
+                else if (runDistance == 1)
+                {
+                    Console.WriteLine("The mouse run from right cat for 1 square!");
+                    return;
+                }
+                else if (runDistance == 2)
+                {
+                    Console.WriteLine("The mouse run from right cat for 2 squares!");
+                    return;
+                }
             }
         }
     }

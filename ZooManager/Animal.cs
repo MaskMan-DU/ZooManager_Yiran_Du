@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ZooManager
 {
     public class Animal
@@ -10,7 +12,7 @@ namespace ZooManager
         
         public Point location;
 
-        public bool isActivated; // Improve Feature: (o) Add a new variable to remember is this animal moved
+        public bool isActivated = false; // Improve Feature: (o) Add a new variable to remember is this animal moved
 
         protected int liveTime = 1; // Improve Feature: (m) Add a new variable to remember the animal's live time
 
@@ -36,11 +38,116 @@ namespace ZooManager
         {
             if (isActivated == true)
             {
-                isActivated = false;
-                return false;
+                return isActivated = false;
             }
-            return true;
+            return isActivated = true;
         }
+
+        // Improve Feature: ()
+        /// <summary>
+        /// Let the runner move in a random direction other than hunterDirecton, and the maximum number of steps to move is determined by Distance.
+        /// </summary>
+        /// <param name="runner">The animal needs to move</param>
+        /// <param name="hunterDirecton">Direction of animal to avoid</param>
+        /// <returns>The number of steps the animal moves</returns>
+        /// Is called by Mouse object
+        protected virtual int Move(Animal runner, Direction hunterDirecton, int Distance)
+        {
+            List<Direction> allDirection = new List<Direction> { Direction.down, Direction.up, Direction.left, Direction.right};
+            allDirection.Remove(hunterDirecton);
+            Random random = new Random();
+            List<Direction> moveDirection = new List<Direction>();
+            foreach (Direction direction in allDirection)
+            {
+                moveDirection.Insert(random.Next(moveDirection.Count + 1), direction);
+            }
+
+            int x = runner.location.x;
+            int y = runner.location.y;
+
+            int distance = 0;
+            bool canMove = false;
+
+            for(int i = 0; i < 3; i++)
+            {
+                if (moveDirection[i] == Direction.up) // direction is up
+                {
+                    for (int d = 0; d < Distance; d++)
+                    {
+                        if (y - d > 0 && x >= 0 && x <= Game.numCellsX - 1 && Game.animalZones[y - (d + 1)][x].occupant == null)
+                        {
+                            Game.animalZones[y - (d + 1)][x].occupant = runner;
+                            Game.animalZones[y - d][x].occupant = null;
+                            distance++;
+                            canMove = true;
+                        }
+                    }
+
+                    if (canMove)
+                    {
+                        return distance;
+                    }
+                }
+                else if (moveDirection[i] == Direction.down)
+                {
+                    for (int d = 0; d < Distance; d++)
+                    {
+                        if (y + d < Game.numCellsY - 1 && x >= 0 && x <= Game.numCellsX - 1 && Game.animalZones[y + (d + 1)][x].occupant == null)
+                        {
+                            Game.animalZones[y + (d + 1)][x].occupant = runner;
+                            Game.animalZones[y + d][x].occupant = null;
+                            distance++;
+                            canMove = true;
+                        }                     
+                    }
+
+                    if (canMove)
+                    {
+                        return distance;
+                    }
+                    
+                }
+                else if (moveDirection[i] == Direction.left)
+                {
+                    for (int d = 0; d < Distance; d++)
+                    {
+                        if (x - d > 0 && y >= 0 && y <= Game.numCellsY -1 && Game.animalZones[y][x - (d + 1)].occupant == null)
+                        {
+                            Game.animalZones[y][x - (d + 1)].occupant = runner;
+                            Game.animalZones[y][x - d].occupant = null;
+                            distance++;
+                            canMove = true;
+                        }
+                    }
+
+                    if (canMove)
+                    {
+                        return distance;
+                    }
+                    
+                }
+                else if (moveDirection[i] == Direction.right)
+                {
+                    for (int d = 0; d < Distance; d++)
+                    {
+                        if (x + d < Game.numCellsX - 1 && y >= 0 && y <= Game.numCellsY - 1 && Game.animalZones[y][x + (d + 1)].occupant == null)
+                        {
+                            Game.animalZones[y][x + (d + 1)].occupant = runner;
+                            Game.animalZones[y][x + d].occupant = null;
+                            distance++;
+                            canMove = true;
+                        }
+                    }
+
+                    if (canMove)
+                    {
+                        return distance;
+                    }      
+                }
+            }
+
+            return distance;
+        } 
 
 
         // Adjust: Move Seek method to Animal. Seek is a behavior that animal can do, it makes sence to put it in the animal class
