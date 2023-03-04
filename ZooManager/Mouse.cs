@@ -3,7 +3,7 @@ namespace ZooManager
 {
     public class Mouse : Animal, IPrey
     {
-        public string Predator { get { return "cat"; } }
+        public string Predator { get { return "cat"; } } // Adjust#2: Override the Predator property of IPrey interface.
         public Mouse(string name)
         {
             emoji = "🐭";

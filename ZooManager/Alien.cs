@@ -10,9 +10,9 @@ namespace ZooManager
         public string name;
         public int reactionTime; 
 
-        protected int liveTime = 1; // Improve Feature: (m) Add a new variable to remember the animal's live time
+        protected int liveTime = 1; // Improve Feature: (m) Add a variable to remember the Alien's live time
 
-        private int turnsNotEat = 0; // Improve Feature: (p) Set up a variable to remember how many turns the animal does not eat
+        private int turnsNotEat = 0; // Improve Feature: (p) Set up a variable to remember how many turns the Alien does not eat
         public int TurnsNotEat { get { return turnsNotEat; } set { turnsNotEat = value; } }
         public List<string> Prey { get { return new List<string>() { "mouse", "chick", "cat", "raptor" }; } }
 
@@ -43,6 +43,12 @@ namespace ZooManager
             }            
         }
 
+        // Adjust#3: First, use Hunt method in IPredator interface. Then change it to make Alien hunt all animals.
+        /// <summary>
+        /// Hunt all animals in the game
+        /// </summary>
+        /// <param name="prey">The list of all Animals</param>
+        /// Is called by Activated() in Alien object
         public void Hunt(List<string> prey)
         {
             if (Seek(location.x, location.y, Direction.up, prey[0]) || Seek(location.x, location.y, Direction.up, prey[1]) || Seek(location.x, location.y, Direction.up, prey[2]) || Seek(location.x, location.y, Direction.up, prey[3])) // "Up" square, is prey
