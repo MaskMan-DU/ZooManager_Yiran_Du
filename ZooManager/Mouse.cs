@@ -19,7 +19,12 @@ namespace ZooManager
             Flee(Predator);
         }
 
-
+        // Improve Feature: (g) The mouse's Flee method needs to use Move method.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hunter"></param>
+        /// <returns></returns>
         public bool Flee(string hunter)
         {
             int runDistance;
