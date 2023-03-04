@@ -39,16 +39,6 @@ namespace ZooManager
                 
         }
 
-        /* Note that our cat is currently not very clever about its hunting.
-         * It will always try to attack "up" and will only seek "down" if there
-         * is no mouse above it. This does not affect the cat's effectiveness
-         * very much, since the overall logic here is "look around for a mouse and
-         * attack the first one you see." This logic might be less sound once the
-         * cat also has a predator to avoid, since the cat may not want to run in
-         * to a square that sets it up to be attacked!
-         */
-
-        // Adjust: Keep this method private, because it only be used in Cat object.
         // Improve Featrue: (e) Make cat can hunt mouse and chick
         public void Hunt(List<string> prey)
         {
@@ -80,7 +70,6 @@ namespace ZooManager
         }
 
         // Improve Feature: (e) Make Cat flee from his predator, raptor
-        /*private bool FleeAwayHunter(string hunter)*/
         public bool Flee(string hunter)
         {
             if (Seek(location.x, location.y, Direction.up, hunter)) // "Up" square, is the predator of Cat

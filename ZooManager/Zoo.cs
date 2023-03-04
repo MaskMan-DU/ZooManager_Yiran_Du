@@ -22,20 +22,30 @@ namespace ZooManager
                     {
                         var zone = Game.animalZones[y][x];
 
-                        if (zone.occupant as Animal != null && reactionTimeNow < r) // Improve Feature: (o) reset the isActivated if the animal move to up or right. When the animal move to up or right, it will can not use NotActivated method to reset the isActivated value.
+                        if ((zone.occupant as Animal != null || zone.occupant as Alien != null) && reactionTimeNow < r) // Improve Feature: (o) reset the isActivated if the animal move to up or right. When the animal move to up or right, it will can not use NotActivated method to reset the isActivated value.
                         {
-                            ((Animal)zone.occupant).isActivated = false;
+                            zone.occupant.isActivated = false;
                         }
 
                         if (zone.occupant as Animal != null && ((Animal)zone.occupant).reactionTime == r) 
                         {
-                            if (((Animal)zone.occupant).NotActivated()) // Improve Feature: (o) Add a check condition.Check if this animal has moved.If it has moved, change the variable isMoved to false and stop activate this animal again.
+                            if (zone.occupant.NotActivated()) // Improve Feature: (o) Add a check condition.Check if this animal has moved.If it has moved, change the variable isMoved to false and stop activate this animal again.
                             {
                                 ((Animal)zone.occupant).Activate();
                             }
 
                             reactionTimeNow++;
 
+                        }
+
+                        if (zone.occupant as Alien != null && ((Alien)zone.occupant).reactionTime == r)
+                        {
+                            if (zone.occupant.NotActivated()) // Improve Feature: (o) Add a check condition.Check if this animal has moved.If it has moved, change the variable isMoved to false and stop activate this animal again.
+                            {
+                                ((Alien)zone.occupant).Activate();
+                            }
+
+                            reactionTimeNow++;
                         }
                     }
                 }

@@ -32,8 +32,16 @@ namespace ZooManager
         {
             get
             {
-                if (occupant as Animal == null) return "";
-                return ((Animal)occupant).reactionTime.ToString();
+                if (occupant as Animal != null) // occupant is animal
+                {
+                    return ((Animal)occupant).reactionTime.ToString();   
+                }
+                else if (occupant as Alien != null) // occupant is alien
+                {
+                    return ((Alien)occupant).reactionTime.ToString(); // Show the rtLabel of alien
+                }
+                    
+                return ""; // occupant is empty
             }
         }
 
