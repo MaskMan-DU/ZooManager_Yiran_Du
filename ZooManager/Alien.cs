@@ -24,7 +24,7 @@ namespace ZooManager
             reactionTime = new Random().Next(1, 11); // default reaction time for aliens (1 - 10)
         }
 
-        virtual public void Activate()
+        public virtual void Activate()
         {
             if (TurnsNotEat > 3) // Improve Feature: (p) If the turnsNotEat more than 3. The Alien will starve to death and become a corpse
             {
