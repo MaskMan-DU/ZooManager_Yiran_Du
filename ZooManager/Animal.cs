@@ -10,12 +10,13 @@ namespace ZooManager
 
         protected int liveTime = 1; // Improve Feature: (m) Add a new variable to remember the animal's live time // Encapsulation: make it "protected" because it should be use in other class except subclass of Animal 
 
-
         public virtual void Activate()
         {
             Console.WriteLine($"Animal {name} at {location.x},{location.y} activated");
             Console.WriteLine($"Animal {name} has lived for {liveTime} turns");
             liveTime++;   
         }    
+
+        // Adjust#3: Move methods to Occupant.
     }
 }

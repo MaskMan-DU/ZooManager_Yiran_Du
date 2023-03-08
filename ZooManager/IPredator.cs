@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace ZooManager
 {
+    // Adjust#2: Create a IPredator interface, all predator will implement this interface
     interface IPredator
     {
         List<string> Prey { get; } // Predators need to know their preys

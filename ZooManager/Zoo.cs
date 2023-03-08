@@ -22,6 +22,7 @@ namespace ZooManager
                     {
                         var zone = Game.animalZones[y][x];
 
+                        // Adjust#3: When Occupant be created, errors will appear, Fix here.
                         if ((zone.occupant as Animal != null || zone.occupant as Alien != null) && reactionTimeNow < r) // Improve Feature: (o) reset the isActivated if the animal move to up or right. When the animal move to up or right, it will can not use NotActivated method to reset the isActivated value.
                         {
                             zone.occupant.isActivated = false;

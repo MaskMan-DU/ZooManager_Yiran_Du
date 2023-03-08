@@ -32,6 +32,7 @@ namespace ZooManager
         {
             get
             {
+                // Adjust#3: When Occupant be created, errors will appear, Fix here.
                 if (occupant as Animal != null) // occupant is animal
                 {
                     return ((Animal)occupant).reactionTime.ToString();   

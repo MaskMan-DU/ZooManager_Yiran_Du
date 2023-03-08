@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ZooManager
 {
-    // Adjust#3: Creat a new class, make it be the top level of Animal and Alien
+    // Adjust#3: Creat a new class, make it be the top Class of Animal and Alien
     public class Occupant
     {
         public string emoji;
@@ -226,7 +226,7 @@ namespace ZooManager
             Game.animalZones[y][x].occupant = null;
         }
 
-        // Adjust: Move Retreat method to Animal. In this way, Alien as a subclass of Occupant can use this method.
+        // Adjust#3: Move Retreat method from Animal to Occupant. In this way, Alien as a subclass of Occupant can use this method.
         // Adjust: Make it protected, because only the class inherited from the Occupant will use this method. Make it virtual, becauce this method might be change in the class which is inherited from Occupant
         protected virtual bool Retreat(Occupant runner, Direction d)
         {
